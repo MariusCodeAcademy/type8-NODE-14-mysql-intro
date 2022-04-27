@@ -1,5 +1,16 @@
+POST http://localhost:3000/api/posts 
+Content-Type: application/json
+
+{
+  "title": ""
+}
+
+###
 GET http://localhost:3000/api/posts 
 
 ###
 
 GET http://localhost:3000/api/first-posts 
+###
+
+GET http://localhost:3000/api/posts/name/Mike

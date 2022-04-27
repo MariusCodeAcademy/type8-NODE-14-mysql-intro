@@ -35,7 +35,7 @@ app.get('/api/posts', async (req, res) => {
     res.status(500).json('something went wrong');
   } finally {
     // 3 atsijungti
-    if (connection) connection.close();
+    if (connection) connection.end();
     // connection?.close();
   }
 });

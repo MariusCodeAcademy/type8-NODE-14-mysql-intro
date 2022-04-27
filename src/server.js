@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const mysql = require('mysql2/promise');
 const { PORT } = require('./config');
 
@@ -15,16 +16,19 @@ const dbConfig = {
 
 // Middle ware
 app.use(morgan('dev'));
+app.use(cors());
 
 // home route
-app.get('/', async (req, res) => {
+app.get('/api/posts', async (req, res) => {
   let connection;
   try {
     // 1 prisijungti
     connection = await mysql.createConnection(dbConfig);
     console.log('connected');
     // 2 atlikti veiksma
-    res.json('connected');
+    const sql = 'SELECT * FROM `posts`';
+    const [rows, fields] = await connection.query(sql);
+    res.json(rows);
   } catch (error) {
     // err gaudom klaidas
     console.log('home route error ===', error);

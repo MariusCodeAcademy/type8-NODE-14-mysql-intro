@@ -37,6 +37,32 @@ postRoutes.get('/first-posts', async (req, res) => {
 });
 
 // GET /api/posts-by-rating/  - parsiusti visus posts isrikiuotuos nuo diziausio rating vertinimo.
+postRoutes.get('/posts-by-rating/', async (req, res) => {
+  let conn;
+  try {
+    // query param
+    const { order } = req.query;
+
+    // SELECT * FROM posts ORDER BY rating DESC
+    // Vietoj DESC gali buti tik 2 reiksmes ASC | DESC
+
+    conn = await mysql.createConnection(dbConfig);
+    const safeOrder = mysql.escape(order);
+    console.log('order ===', order);
+    console.log('safeOrder ===', safeOrder);
+    // salyga ? true :  false
+    const ascOrDesc = order === 'ASC' ? 'ASC' : 'DESC';
+    const sql = `SELECT * FROM posts ORDER BY rating ${ascOrDesc}`;
+    console.log('sql ===', sql);
+    const [rows] = await conn.query(sql);
+    res.json(rows);
+  } catch (error) {
+    console.log('error posts-by-rating', error);
+    res.sendStatus(500);
+  } finally {
+    await conn?.end();
+  }
+});
 
 // perkelti /api/posts routa is server.js i postRoute.js
 

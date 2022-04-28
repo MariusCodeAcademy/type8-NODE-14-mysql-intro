@@ -19,3 +19,9 @@ GET http://localhost:3000/api/first-posts
 ###
 
 GET http://localhost:3000/api/posts/name/Mike
+###
+
+GET http://localhost:3000/api/posts-by-rating
+###
+
+GET http://localhost:3000/api/posts-by-rating?order=sdsds&limit=5

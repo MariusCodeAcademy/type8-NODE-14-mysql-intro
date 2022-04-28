@@ -1,8 +1,13 @@
-POST http://localhost:3000/api/posts 
+
+# POST http://localhost:3000/api/posts/:postId?sort=ASC
+POST http://localhost:3000/api/posts/
 Content-Type: application/json
 
 {
-  "title": ""
+  "title": "CSS is great",
+  "author": "Jill",
+  "body": "css is flex",
+  "rating": 5
 }
 
 ###

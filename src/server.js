@@ -10,6 +10,8 @@ const app = express();
 // Middle ware
 app.use(morgan('dev'));
 app.use(cors());
+// kad express galetu gauti json siustus duomenis
+app.use(express.json());
 
 app.use('/api/', postRoutes);
 

@@ -66,5 +66,37 @@ postRoutes.get('/posts/name/:name', async (req, res) => {
 });
 
 // POST /api/posts - sukurti nauja posta su duomenimis kuriuos gavo is post route
+postRoutes.post('/posts', async (req, res) => {
+  let conn;
+  try {
+    const newPostObj = req.body;
+    console.log('newPostObj ===', newPostObj);
+    // const title = newPostObj.title;
+    // const author = newPostObj.author;
+    // const body = newPostObj.body;
+    // const rating = newPostObj.rating;
+    // ===
+
+    // eslint-disable-next-line object-curly-newline
+    const { title, author, body, rating } = newPostObj;
+
+    conn = await mysql.createConnection(dbConfig);
+    const sql = `
+    INSERT INTO posts (title, author, body, rating)
+    VALUES (?, ?, ?, ?)
+    `;
+    const [insertResultObj] = await conn.execute(sql, [title, author, body, rating]);
+    if (insertResultObj.affectedRows === 1) {
+      res.status(201).json(insertResultObj);
+      return;
+    }
+    throw new Error('affected row not 1');
+  } catch (error) {
+    console.log('error creating post', error);
+    res.sendStatus(500);
+  } finally {
+    await conn?.end();
+  }
+});
 
 module.exports = postRoutes;

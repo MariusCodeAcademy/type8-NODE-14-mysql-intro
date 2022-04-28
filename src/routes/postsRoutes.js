@@ -125,4 +125,32 @@ postRoutes.post('/posts', async (req, res) => {
   }
 });
 
+// DELETE /api/posts/:postId - istrina posta kurio id === postId
+postRoutes.delete('/posts/:postId', async (req, res) => {
+  // res.json(req.params.postId);
+  let conn;
+  try {
+    const { postId } = req.params;
+    conn = await mysql.createConnection(dbConfig);
+    const sql = 'DELETE FROM posts WHERE id = ?';
+    const [deleteRezult] = await conn.execute(sql, [postId]);
+    if (deleteRezult.affectedRows !== 1) {
+      res
+        .status(400)
+        .json({ success: false, error: `user with id ${postId}, was not found` });
+      return;
+    }
+    if (deleteRezult.affectedRows === 1) {
+      res.json('delete ok');
+      return;
+    }
+    throw new Error('sometnig wrong in deleteRezult.affectedRows');
+  } catch (error) {
+    console.log('error DELETE posts', error);
+    res.sendStatus(500);
+  } finally {
+    await conn?.end();
+  }
+});
+
 module.exports = postRoutes;

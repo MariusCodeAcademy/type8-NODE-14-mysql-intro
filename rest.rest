@@ -29,3 +29,8 @@ GET http://localhost:3000/api/posts-by-rating?order=sdsds&limit=5
 ###
 
 DELETE http://localhost:3000/api/posts/10
+
+### 
+
+POST http://localhost:3000/api/categories/create
+Content-Type: application/json

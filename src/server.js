@@ -1,9 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const mysql = require('mysql2/promise');
-const { PORT, dbConfig } = require('./config');
+const { PORT } = require('./config');
 const postRoutes = require('./routes/postsRoutes');
+const catRoutes = require('./routes/catRoutes');
 
 const app = express();
 
@@ -13,11 +13,16 @@ app.use(cors());
 // kad express galetu gauti json siustus duomenis
 app.use(express.json());
 
+// ROUTES
 app.use('/api/', postRoutes);
+app.use('/api/', catRoutes);
 
-// api
+// 404
 app.all('*', (req, res) => {
   res.status(404).json({ error: 'Page not found' });
 });
 
 app.listen(PORT, () => console.log('server is running on port', PORT));
+
+// POST /api/categories/create - sukuria nauja lentele categories
+// categories lentele turi id ir title

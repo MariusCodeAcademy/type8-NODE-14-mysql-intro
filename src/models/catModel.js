@@ -29,6 +29,28 @@ async function createTableDB() {
   }
 }
 
+async function insertCatDB(title) {
+  console.log('insertCatDB model ran');
+  let conn;
+  try {
+    conn = await mysql.createConnection(dbConfig);
+    const sql = `
+    INSERT INTO categories (title)
+    VALUES (?)
+    `;
+    const [result] = await conn.execute(sql, [title]);
+    return result;
+  } catch (error) {
+    console.log('error insertCatDB');
+    // return false;
+    // throw new Error('error createTableDB');
+    throw error;
+  } finally {
+    conn?.end();
+  }
+}
+
 module.exports = {
   createTableDB,
+  insertCatDB,
 };

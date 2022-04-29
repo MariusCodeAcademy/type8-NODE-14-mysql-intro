@@ -35,6 +35,24 @@
         });
       }
 
+      // post post
+      async function createPost(newPostObj, id) {
+        const newPost = {
+          title: newPostObj.title,
+          author: newPostObj.author,
+        };
+        const resp = await fetch(
+          `http://localhost:3000/api/posts/12345?sort=ASC&limit=10`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newPost),
+          }
+        );
+      }
+
       // delete function
       async function deletePost(delId) {
         const resp = await fetch(`http://localhost:3000/api/posts/${delId}`, {

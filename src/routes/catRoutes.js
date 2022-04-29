@@ -10,12 +10,16 @@ async function createTableDB() {
   let conn;
   try {
     conn = await mysql.createConnection(dbConfig);
-    const sql = 'SELECT * FROM posts';
+    const sql = 'SELECT nera FROM posts';
+    console.log('pries uzklausa');
     const [result] = await conn.query(sql);
+    console.log('po uzklausos');
     return result;
   } catch (error) {
-    console.log('error createTableDB', error);
-    return false;
+    console.log('error createTableDB');
+    // return false;
+    // throw new Error('error createTableDB');
+    throw error;
   } finally {
     conn?.end();
   }
@@ -23,13 +27,14 @@ async function createTableDB() {
 
 async function createTable(req, res) {
   console.log('createTable controller ran');
-  const createResult = await createTableDB();
-
-  if (createResult === false) {
+  try {
+    const createResult = await createTableDB();
+    res.json(createResult);
+  } catch (error) {
+    // console.log('error createTable ===', error);
+    console.log('error createTable ===', error.sqlMessage);
     res.sendStatus(500);
-    return;
   }
-  res.json(createResult);
 }
 
 // routes

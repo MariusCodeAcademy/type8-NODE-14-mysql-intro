@@ -1,31 +1,31 @@
 
-# POST http://localhost:3000/api/posts/:postId?sort=ASC
-POST http://localhost:3000/api/posts/
+# POST http://localhost:3001/api/posts/:postId?sort=ASC
+POST http://localhost:3001/api/posts/
 Content-Type: application/json
 
 {
   "title": "CSS is great",
-  "author": "Jill",
-  "body": "css is flex",
-  "rating": 5
+  "author": "Mike",
+  "body": "Use grid layout",
+  "rating": 3
 }
 
 ###
-GET http://localhost:3000/api/posts 
+GET http://localhost:3001/api/posts 
 
 ###
 
-GET http://localhost:3000/api/first-posts 
+GET http://localhost:3001/api/first-posts 
 ###
 
-GET http://localhost:3000/api/posts/name/Mike
+GET http://localhost:3001/api/posts/name/Mike
 ###
 
-GET http://localhost:3000/api/posts-by-rating
+GET http://localhost:3001/api/posts-by-rating
 ###
 
-GET http://localhost:3000/api/posts-by-rating?order=sdsds&limit=5
+GET http://localhost:3001/api/posts-by-rating?order=sdsds&limit=5
 
 ###
 
-DELETE http://localhost:3000/api/posts/10
+DELETE http://localhost:3001/api/posts/10

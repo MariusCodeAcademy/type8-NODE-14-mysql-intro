@@ -12,5 +12,5 @@ const dbConfig = {
 
 module.exports = {
   PORT,
-  dbConfig
+  dbConfig,
 };
